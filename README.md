@@ -1,3 +1,3 @@
 # CS61A_22Spring
 
-A repository for storing assignment
+A repository for storing assignments
