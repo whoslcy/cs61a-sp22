@@ -10,3 +10,19 @@ def k_occurrence(k, num):
     0
     """
     "*** YOUR CODE HERE ***"
+    if num == 0:
+        return 0
+
+    digit = num % 10
+    count = 0
+    if digit == k:
+        count += 1
+    num_remaining = num // 10
+
+    while num_remaining != 0:
+        digit = num_remaining % 10
+        if digit == k:
+            count += 1
+        num_remaining //= 10
+
+    return count
