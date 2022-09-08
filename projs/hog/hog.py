@@ -184,25 +184,27 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     while score0 < 100 and score1 < 100:
         player = who
         opponent = next_player(who)
-        score_of_player = score_of[player]
-        score_of_opponent = score_of[opponent]
-        points_scored = take_turn(strategy_of[player](score_of_player, score_of_opponent),
-                                  score_of_player, score_of_opponent, dice, goal)
-        score_of_player += points_scored
-        score_of_player += hog_pile(score_of_player, score_of_opponent)
-        score_of[player] = score_of_player
+        player_score = score_of[player]
+        opponent_score = score_of[opponent]
+        points_scored = take_turn(strategy_of[player](player_score, opponent_score),
+                                  player_score, opponent_score, dice, goal)
+        player_score += points_scored
+        player_score += hog_pile(player_score, opponent_score)
+        # One turn is over and update the player's score
+        score_of[player] = player_score
         # No need to update the opponent's score which dosen't change
-        if score_of_player >= goal:
-            break
-        # Next turn
+        # Update who for next turn
         who = opponent
-    return score_of[0], score_of[1]
     # END PROBLEM 5
     # (note that the indentation for the problem 7 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+        leader, message = say(score_of[0], score_of[1], leader)
+        if message:
+            print(message)
+        if player_score >= goal:
+            break
     # END PROBLEM 7
-    return score0, score1
+    return score_of[0], score_of[1]
 
 
 #######################
@@ -235,6 +237,21 @@ def announce_lead_changes(score0, score1, last_leader=None):
     """
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
+    if score0 > score1:
+        now_leader = 0
+    elif score0 < score1:
+        now_leader = 1
+    else:
+        now_leader = None
+    if now_leader == None or now_leader == last_leader:
+        message = None
+    else:
+        message = f"Player {now_leader} takes the lead by "
+        if now_leader == 0:
+            message += str(score0 - score1)
+        else:
+            message += str(score1 - score0)
+    return now_leader, message
     # END PROBLEM 6
 
 
