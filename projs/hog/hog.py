@@ -318,6 +318,12 @@ def make_averaged(original_function, total_samples=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def averaged_function(*args):
+        result = 0
+        for i in range(0, total_samples):
+            result += original_function(*args)
+        return result / total_samples
+    return averaged_function
     # END PROBLEM 8
 
 
@@ -332,6 +338,16 @@ def max_scoring_num_rolls(dice=six_sided, total_samples=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    roll_dice_averaged = make_averaged(roll_dice, total_samples)
+    max_score = 0
+    number_max = -1
+    for i in range(1, 11):
+        score = roll_dice_averaged(i, dice)
+        if score > max_score:
+            max_score = score
+            number_max = i
+    assert number_max >= 1
+    return number_max
     # END PROBLEM 9
 
 
@@ -360,10 +376,10 @@ def run_experiments():
     print('Max scoring num rolls for six-sided dice:', six_sided_max)
     print('always_roll(6) win rate:', average_win_rate(always_roll(6)))
 
-    #print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
-    #print('hefty_hogs_strategy win rate:', average_win_rate(hefty_hogs_strategy))
+    print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
+    print('hefty_hogs_strategy win rate:', average_win_rate(hefty_hogs_strategy))
     print('hog_pile_strategy win rate:', average_win_rate(hog_pile_strategy))
-    #print('final_strategy win rate:', average_win_rate(final_strategy))
+    print('final_strategy win rate:', average_win_rate(final_strategy))
     "*** You may add additional experiments as you wish ***"
 
 
@@ -372,7 +388,10 @@ def hefty_hogs_strategy(score, opponent_score, threshold=8, num_rolls=6):
     returns NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 6  # Remove this line once implemented.
+    if hefty_hogs(score, opponent_score) >= threshold:
+        return 0
+    else:
+        return num_rolls
     # END PROBLEM 10
 
 
@@ -382,7 +401,13 @@ def hog_pile_strategy(score, opponent_score, threshold=8, num_rolls=6):
     Otherwise, it returns NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 6  # Remove this line once implemented.
+    # I didn't make it to use HEFT_HOGS_STRATEGY
+    points = hefty_hogs(score, opponent_score)
+    new_score = score + points
+    if hog_pile(new_score, opponent_score) > 0 or points >= threshold:
+        return 0
+    else:
+        return num_rolls
     # END PROBLEM 11
 
 
