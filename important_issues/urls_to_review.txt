@@ -1,3 +1,5 @@
 https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc01/#q3-if-function-vs-statement
 https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc01/#q6-fizzbuzz
 https://inst.eecs.berkeley.edu/~cs61a/sp22/proj/hog/#problem-6-2-pt
+https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc02/#q6-curry2-diagram
+https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc03/#q5-merge-numbers
