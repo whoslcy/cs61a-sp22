@@ -1,1 +1,3 @@
 https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc03/#q6-is-prime
+https://inst.eecs.berkeley.edu/~cs61a/sp22/proj/cats/#problem-7-3-pts
+https://inst.eecs.berkeley.edu/~cs61a/sp22/proj/cats/#optional-extension-final-diff-0pt
