@@ -26,6 +26,7 @@ class Tree:
                 lines.append('  ' + line)
         return [str(self.label)] + lines
 
+
 # q2_height
 def height(t):
     """Return the height of a tree.
@@ -44,6 +45,7 @@ def height(t):
         return max([height(branch) for branch in t.branches]) + 1
 
 
+# q3
 def max_path_sum(t):
     """Return the maximum path sum of the tree.
 
@@ -58,6 +60,7 @@ def max_path_sum(t):
         return max(max_path_sum(branch) for branch in t.branches) + t.label
 
 
+# q4
 def find_path(t, x):
     """
     >>> t = Tree(2, [Tree(7, [Tree(3), Tree(6, [Tree(5), Tree(11)])]), Tree(15)])
@@ -67,14 +70,33 @@ def find_path(t, x):
     """
     if t.is_leaf():
         return [x] if t.label == x else None
-    else:
-        path = [t.label]
-        find_path(branch, x) for branch in t.branches if find_path(branch, x)
-    
-    # if _____________________________:
-    #     return _____________________________
-    # _____________________________:
-    #     path = ______________________
-    #     if _____________________________:
-    #         return _____________________________
+    # else
+    for branch in t.branches:
+        path = find_path(branch, x)
+        if path:
+            return [t.label] + path
+
+
+def prune_small(t, n):
+    """Prune the tree mutatively, keeping only the n branches
+    of each node with the smallest label.
+
+    >>> t1 = Tree(6)
+    >>> prune_small(t1, 2)
+    >>> t1
+    Tree(6)
+    >>> t2 = Tree(6, [Tree(3), Tree(4)])
+    >>> prune_small(t2, 1)
+    >>> t2
+    Tree(6, [Tree(3)])
+    >>> t3 = Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2), Tree(3)]), Tree(5, [Tree(3), Tree(4)])])
+    >>> prune_small(t3, 2)
+    >>> t3
+    Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2)])])
+    """
+    while len(t.branches) > n:
+        largest = max(t.branches, key=lambda branch: branch.label)
+        t.branches.remove(largest)
+    for branch in t.branches:
+        prune_small(branch, n)
 
