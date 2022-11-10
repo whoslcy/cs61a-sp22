@@ -4,3 +4,4 @@ https://inst.eecs.berkeley.edu/~cs61a/sp22/proj/cats/#optional-extension-final-d
 https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc04/#q5-max-product
 https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc05/ Q1 my_reduce
 https://inst.eecs.berkeley.edu/~cs61a/sp22/hw/hw05/#optional-questions q1-b
+https://inst.eecs.berkeley.edu/~cs61a/sp22/lab/lab07/#q6-cycles

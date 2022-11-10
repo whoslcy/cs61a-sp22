@@ -15,6 +15,16 @@ def store_digits(n):
     >>> link1 = Link(3, Link(Link(4), Link(5, Link(6))))
     """
     "*** YOUR CODE HERE ***"
+    old_lnk = Link(n % 10)
+    n //= 10
+    while n:
+        digit = n % 10
+        new_lnk = Link(digit)
+        new_lnk.rest = old_lnk
+        old_lnk = new_lnk
+        n //= 10
+    return old_lnk
+
 
 
 def cumulative_mul(t):
@@ -31,6 +41,14 @@ def cumulative_mul(t):
     Tree(5040, [Tree(60, [Tree(3), Tree(4), Tree(5)]), Tree(42, [Tree(7)])])
     """
     "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return None
+    else:
+        product = 1
+        for branch in t.branches:
+            cumulative_mul(branch)
+            product *= branch.label
+        t.label *= product
 
 
 def has_cycle(link):
