@@ -52,14 +52,23 @@ def merge(incr_a, incr_b):
     iter_a, iter_b = iter(incr_a), iter(incr_b)
     next_a, next_b = next(iter_a, None), next(iter_b, None)
     "*** YOUR CODE HERE ***"
-    while True:
-        if next_a < next_b:
+    while next_a != None or next_b != None:
+        if next_b == None:
             yield next_a
-            next_a = next(iter_a, next_b)
-        elif next_a == next_b:
-            yield next_a
-            next_a = next(iter_a)
-            next_b = next(iter_b)
+            next_a = next(iter_a, None)
+        elif next_a == None:
+            yield next_b
+            next_b = next(iter_b, None)
+        else:  # Both are not None
+            if next_b == next_a:
+                yield next_a
+                next_a, next_b = next(iter_a, None), next(iter_b, None)
+            elif next_b > next_a:
+                yield next_a
+                next_a = next(iter_a, None)
+            else:
+                yield next_b
+                next_b = next(iter_b, None)
 
 
 def deep_len(lnk):
@@ -76,12 +85,12 @@ def deep_len(lnk):
     >>> deep_len(levels)
     5
     """
-    if ______________:
+    if lnk == Link.empty:
         return 0
-    elif ______________:
+    elif not isinstance(lnk, Link):
         return 1
     else:
-        return _________________________
+        return deep_len(lnk.first) + deep_len(lnk.rest)
 
 
 def add_d_leaves(t, v):
@@ -143,6 +152,13 @@ def add_d_leaves(t, v):
         10
     """
     "*** YOUR CODE HERE ***"
+    depth = 0
+    def helper(t, v, depth):
+        for branch in t.branches:
+            helper(branch, v, depth+1)
+        for _ in range(depth):
+            t.branches.append(Tree(v))
+    return helper(t, v, depth)
 
 
 def insert_into_all(item, nested_list):
@@ -155,6 +171,9 @@ def insert_into_all(item, nested_list):
     [[0], [0, 1, 2], [0, 3]]
     """
     "*** YOUR CODE HERE ***"
+    for every_list in nested_list:
+        every_list.insert(0, item)
+    return nested_list
 
 
 def subseqs(s):
@@ -167,11 +186,6 @@ def subseqs(s):
     >>> subseqs([])
     [[]]
     """
-    if ________________:
-        ________________
-    else:
-        ________________
-        ________________
 
 
 def non_decrease_subseqs(s):
@@ -226,11 +240,11 @@ def shuffle(cards):
     ['AH', 'AD', 'AS', 'AC', '2H', '2D', '2S', '2C', '3H', '3D', '3S', '3C']
     """
     assert len(cards) % 2 == 0, 'len(cards) must be even'
-    half = _______________
+    half = cards[len(cards)//2:]
     shuffled = []
-    for i in _____________:
-        _________________
-        _________________
+    for i in range(len(half)):
+        shuffled.append(cards[i])
+        shuffled.append(half[i])
     return shuffled
 
 
@@ -252,6 +266,11 @@ def pairs(lst):
     5 5
     """
     "*** YOUR CODE HERE ***"
+    for i in range(len(lst)):
+        first = [lst[i]]
+        for j in range(len(lst)):
+            second = [lst[j]]
+            yield first + second
 
 
 class PairsIterator:
@@ -310,6 +329,16 @@ def long_paths(tree, n):
     [Link(0, Link(11, Link(12, Link(13, Link(14)))))]
     """
     "*** YOUR CODE HERE ***"
+    if n <= 0 and tree.is_leaf():
+        return [Link(tree.label)]
+    else:
+        result = []
+        for branch in tree.branches:
+            paths = long_paths(branch, n-1)
+            for i in range(len(paths)):
+                paths[i] = Link(tree.label, paths[i])
+            result += paths
+        return result
 
 
 def flip_two(s):
@@ -327,6 +356,14 @@ def flip_two(s):
 
     # For an extra challenge, try writing out an iterative approach as well below!
     "*** YOUR CODE HERE ***"
+    if s == Link.empty or s.rest == Link.empty:
+        return
+    else:
+        new_first = s.rest.first
+        new_second = s.first
+        s.first = new_first
+        s.rest.first = new_second
+        flip_two(s.rest.rest)
 
 
 class Link:
