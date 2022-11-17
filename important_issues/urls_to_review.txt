@@ -7,3 +7,4 @@ https://inst.eecs.berkeley.edu/~cs61a/sp22/proj/cats/#problem-5-2-pts
 https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc04/#q2-count-k
 https://inst.eecs.berkeley.edu/~cs61a/sp22/proj/ants/#problem-2-1-pt
     "However, simply passing an entrance to a Place constructor will be problematic; we would need to have both the exit and the entrance before creating a Place!"
+https://inst.eecs.berkeley.edu/~cs61a/sp22/hw/hw06/#q5-no-repeats
