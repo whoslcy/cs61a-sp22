@@ -111,7 +111,7 @@ class Buffer:
         # BEGIN
         "*** YOUR CODE HERE ***"
         token_to_pop = self.current
-        self.current
+        self.current = next(self.generator, None)
         return token_to_pop
         # END
 
