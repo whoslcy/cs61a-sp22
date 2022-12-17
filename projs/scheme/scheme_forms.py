@@ -38,6 +38,8 @@ def do_define_form(expressions, env):
         validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
+        env.define(signature, scheme_eval(expressions.rest.first, env))
+        return signature
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
@@ -59,6 +61,7 @@ def do_quote_form(expressions, env):
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    return expressions.first
     # END PROBLEM 5
 
 
@@ -87,6 +90,7 @@ def do_lambda_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
 
