@@ -36,7 +36,7 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
         procedure = scheme_eval(first, env)
-        def my_scheme_eval(expr, env=env):
+        def my_scheme_eval(expr):
             return scheme_eval(expr, env)
         return scheme_apply(procedure, rest.map(my_scheme_eval), env)
         # END PROBLEM 3
@@ -98,7 +98,7 @@ def eval_all(expressions, env):
     while expressions.rest is not nil:
         scheme_eval(expressions.first, env)
         expressions = expressions.rest
-    return scheme_eval(expressions.first, env)
+    return scheme_eval(expressions.first, env, True)
     # END PROBLEM 6
 
 
@@ -133,10 +133,33 @@ def optimize_tail_calls(unoptimized_scheme_eval):
         """
         if tail and not scheme_symbolp(expr) and not self_evaluating(expr):
             return Unevaluated(expr, env)
-
-        result = Unevaluated(expr, env)
         # BEGIN PROBLEM EC
-        "*** YOUR CODE HERE ***"
+        else:
+            # Evaluate atoms
+            if scheme_symbolp(expr):
+                return env.lookup(expr)
+            elif self_evaluating(expr):
+                return expr
+            # All non-atomic expressions are lists (combinations)
+            if not scheme_listp(expr):
+                raise SchemeError('malformed list: {0}'.format(repl_str(expr)))
+            first, rest = expr.first, expr.rest
+            if scheme_symbolp(first) and first in scheme_forms.SPECIAL_FORMS:
+                return scheme_forms.SPECIAL_FORMS[first](rest, env)
+            else:
+                "*** YOUR CODE HERE ***"
+                procedure = scheme_eval(first, env)
+                def my_scheme_eval(expr):
+                    return scheme_eval(expr, env)
+                def my_complete_apply(procedure, args, env):
+                    """Apply procedure to args in env; ensure the result is not an Unevaluated."""
+                    validate_procedure(procedure)
+                    val = scheme_apply(procedure, args, env)
+                    while isinstance(val, Unevaluated):
+                        val = unoptimized_scheme_eval(val.expr, val.env)
+                    else:
+                        return val
+                return my_complete_apply(procedure, rest.map(my_scheme_eval), env)
         # END PROBLEM EC
     return optimized_eval
 
@@ -144,4 +167,4 @@ def optimize_tail_calls(unoptimized_scheme_eval):
 ################################################################
 # Uncomment the following line to apply tail call optimization #
 ################################################################
-# scheme_eval = optimize_tail_calls(scheme_eval)
+scheme_eval = optimize_tail_calls(scheme_eval)
