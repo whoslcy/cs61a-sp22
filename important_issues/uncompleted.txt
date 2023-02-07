@@ -8,3 +8,5 @@ https://inst.eecs.berkeley.edu/~cs61a/sp22/hw/hw05/#optional-questions q1-b
 https://inst.eecs.berkeley.edu/~cs61a/sp22/lab/lab07/#q6-cycleshttps://inst.eecs.berkeley.edu/~cs61a/sp22/lab/lab08/#q6-subsequences
 https://inst.eecs.berkeley.edu/~cs61a/sp22/lab/lab08/#q6-subsequences
 https://inst.eecs.berkeley.edu/~cs61a/sp22/lab/lab08/#q7-non-decreasing-subsequences
+https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc12/#q4-make-or
+https://inst.eecs.berkeley.edu/~cs61a/sp22/disc/disc12/#q5-make-make-or
