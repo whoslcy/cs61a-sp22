@@ -66,6 +66,16 @@ def has_cycle(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    fast = link
+    slow = link
+    while True:
+        if fast.rest != Link.empty:
+            fast = fast.rest.rest
+        else:
+            return False
+        slow = slow.rest
+        if fast == slow:
+            return True
 
 
 def has_cycle_constant(link):
@@ -80,6 +90,7 @@ def has_cycle_constant(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    
 
 
 class Link:
