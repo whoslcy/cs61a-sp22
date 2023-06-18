@@ -90,22 +90,25 @@ def siblings(t):
     return result
 
 
-# q1-b uncompleted
-# class Sib(Tree):
-#     """A tree that knows how many siblings it has.
-#     >>> a = Sib(4, [Sib(5), Sib(6), Sib(7, [Sib(8)])])
-#     >>> a.label
-#     4
-#     >>> a.branches[1].label
-#     6
-#     >>> a.siblings
-#     0
-#     >>> a.branches[1].siblings
-#     2
-#     """
-#     def __init__(self, label, branches=[]):
-#         self.siblings = 0
-#         Tree.__init__(self, label, branches)
+class Sib(Tree):
+    """A tree that knows how many siblings it has.
+    >>> a = Sib(4, [Sib(5), Sib(6), Sib(7, [Sib(8)])])
+    >>> a.label
+    4
+    >>> a.branches[1].label
+    6
+    >>> a.siblings
+    0
+    >>> a.branches[1].siblings
+    2
+    """
+    def __init__(self, label, branches=[]):
+        self.siblings = 0
+        branch_number = len(branches)
+        for branch in branches:
+            branch.siblings = branch_number - 1
+        Tree.__init__(self, label, branches)
+
 
 
 # q2-a
