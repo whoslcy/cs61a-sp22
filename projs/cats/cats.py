@@ -225,23 +225,34 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    if ______________:  # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
-    elif ___________:  # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
+    
+    if limit < 0 or (start == '' and goal == ''):
+        return 0
+    elif start =='':
+        return len(goal)
+    elif goal == '':
+        return len(start)
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        # String modulo.
+        min_length = min(len(start), len(goal))
+        break_flag = False
+        for i in range(0, min_length):
+            if start[i] == goal[i]:
+                continue
+            else:
+                start = start[i:]
+                goal = goal[i:]
+                break_flag = True
+                break
+        if not break_flag:
+            # START xor GOAL is empty after string modulo.
+            return(max(len(start[i+1:]), len(goal[i+1:])))
+        else:
+            new_limit = limit - 1
+            add = minimum_mewtations(start, goal[1:], new_limit)  # Fill in these lines
+            remove = minimum_mewtations(start[1:], goal, new_limit)
+            substitute = minimum_mewtations(start[1:], goal[1:], new_limit)
+        return min(add, remove, substitute) + 1
 
 
 def final_diff(start, goal, limit):
