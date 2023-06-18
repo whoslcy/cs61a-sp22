@@ -186,6 +186,11 @@ def subseqs(s):
     >>> subseqs([])
     [[]]
     """
+    result = [[]]
+    for element in reversed(s):
+        result_thorough_clone = [list(result_element) for result_element in result]
+        result += insert_into_all(element, result_thorough_clone)
+    return result
 
 
 def non_decrease_subseqs(s):
