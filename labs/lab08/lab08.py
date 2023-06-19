@@ -207,16 +207,22 @@ def non_decrease_subseqs(s):
     >>> sorted(seqs2)
     [[], [1], [1], [1, 1], [1, 1, 2], [1, 2], [1, 2], [2]]
     """
-    def subseq_helper(s, prev):
-        if not s:
-            return ____________________
-        elif s[0] < prev:
-            return ____________________
-        else:
-            a = ______________________
-            b = ______________________
-            return insert_into_all(________, ______________) + ________________
-    return subseq_helper(____, ____)
+    # def subseq_helper(s, prev):
+    #     if not s:
+    #         return ____________________
+    #     elif s[0] < prev:
+    #         return ____________________
+    #     else:
+    #         a = ______________________
+    #         b = ______________________
+    #         return insert_into_all(________, ______________) + ________________
+    # return subseq_helper(____, ____)
+    if not s:
+        return [[]]
+    else:
+        a = non_decrease_subseqs(s[1:])
+        b = [list(item) for item in a if len(item) > 0 and item[0] >= s[0]] + [[]]
+        return insert_into_all(s[0], b) + a
 
 
 def card(n):
