@@ -1,0 +1,37 @@
+?start: lines
+lines: | line | line ("\n" line)+
+line: | word | word ("," word)+
+word: WORD?
+
+%import common.WORD
+
+%doctest
+lark> first,second,third
+....> fourth,fifth,sixth,,eighth
+lines
+  line
+    word  first
+    word  second
+    word  third
+  line
+    word  fourth
+    word  fifth
+    word  sixth
+    word
+    word  eighth
+lark> one,,,,three
+lines
+  line
+    word  one
+    word
+    word
+    word
+    word  three
+lark> ,,,word
+lines
+  line
+    word
+    word
+    word
+    word  word
+%end
