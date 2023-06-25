@@ -73,4 +73,4 @@ def roman_numerals(text):
     >>> roman_numerals("she loves ALL editors equally.")
     False
     """
-    return bool(re.search("(^|[^0-9a-zA-Z])[IVXLCDM]+([^0-9a-zA-Z]|$)", text))
+    return bool(re.search(r"\b[IVXLCDM]+\b", text))
