@@ -67,7 +67,7 @@ def double_eights(n):
 
     while n_remaining != 0:
         digit2 = n_remaining % 10
-        if digit1 == digit2 and digit == 8:
+        if digit1 == digit2 and digit1 == 8:
             return True
         digit1 = digit2
         n_remaining //= 10

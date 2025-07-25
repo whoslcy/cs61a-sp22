@@ -68,10 +68,16 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    if n == 1:
-        return 1
-    else:
-        return count() + pingpong(n-1)
+    def recursion(index, final_index, result, change):
+        if index >= final_index:
+            return result
+        
+        if num_eights(index) != 0 or index % 8 == 0:
+            return recursion(index + 1, final_index, result - change, -change)
+        else:
+            return recursion(index + 1, final_index, result + change, change)
+    
+    return recursion(1, n, 1, 1)
 
 
 def get_larger_coin(coin):
@@ -128,13 +134,13 @@ def count_coins(change):
     True
     """
     "*** YOUR CODE HERE ***"
-    if 0 <= change and change < 5:
-        return 1
-    elif 5 <= change and change <10:
-        return 1*count_coins(change-5) + count_coins(1)*count_coins(change-1)
-    elif 10 <= change and change < 25:
-        return 1*count_coins(change-10) + 
-    elif 10 < change and change <= 25:
-        return count_coins(5) * count_coins(change - 5) + count_coins(10) * count_coins(change - 10)
-    else:
-        return count_coins(5) * count_coins(change - 5) + count_coins(10) * count_coins(change - 10) + count_coins(25) * count_coins(change - 25)
+    def recursion(change, largest_coin):
+        SMALLEST_COIN = 1
+        if change < 0:
+            return 0
+        if change == 0:
+            return 1
+        if largest_coin == SMALLEST_COIN:
+            return 1
+        return recursion(change - largest_coin, largest_coin) + recursion(change, get_smaller_coin(largest_coin))
+    return recursion(change, 25)

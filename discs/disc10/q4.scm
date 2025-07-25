@@ -6,5 +6,4 @@
 )
 
 
-(map-fn (lambda (x) (* x x)) '(1 2 3))
-; expect (1 4 9)
+(expect (map-fn (lambda (x) (* x x)) '(1 2 3)) (1 4 9))

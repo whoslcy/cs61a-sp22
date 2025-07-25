@@ -11,4 +11,9 @@ def my_reduce(combiner, seq):
     11
     """
     "*** YOUR CODE HERE ***"
-    
+    if not seq:
+        raise ValueError("Sequence must have at least one element")
+    result = seq[0]
+    for item in seq[1:]:
+        result = combiner(result, item)
+    return result
