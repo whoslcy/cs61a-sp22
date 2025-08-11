@@ -8,6 +8,11 @@ press_any_key_to() {
   clear
 }
 
+# `ok` is the CS 61A official assignment grader.
+# [The reference](https://cs61a.org/articles/using-ok/)
+# [The command generator](https://ok-help.cs61a.org/)
+OK="$(pwd)/ok"
+
 test_a_section() {
   echo "Start testing the $1 section."
 
@@ -15,10 +20,7 @@ test_a_section() {
   for directory in "${@:2}"; do
     cd "${directory}"
 
-    # `ok` is the CS 61A official assignment grader.
-    # [The reference](https://cs61a.org/articles/using-ok/)
-    # [The command generator](https://ok-help.cs61a.org/)
-    python3 ok --local
+    python3 "${OK}" --local
 
     cd "${old_pwd}"
     press_any_key_to "test the next one if any."
@@ -39,9 +41,8 @@ echo
 echo 'All `doctest`s passed.'
 
 press_any_key_to "test the Scheme functions."
+SCHEME_INTERPRETER=labs/lab10/scheme
 test_scheme() {
-  local SCHEME_INTERPRETER=labs/lab10/scheme
-
   for scheme_file in "$@"; do
     echo "${scheme_file}:"
     echo
